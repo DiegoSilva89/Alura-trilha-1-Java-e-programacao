@@ -48,7 +48,10 @@ public class Main {
                     System.out.printf("Valor transferido. Seu novo saldo é: R$ %.2f %n", saldo);
                 }
             } else if (opcao == 4) {
+                System.out.println("Volte sempre!");
                 break;
+            } else {
+                System.out.println("Opção inválida. Por gentileza, escolha uma opção válida!");
             }
 
         }
