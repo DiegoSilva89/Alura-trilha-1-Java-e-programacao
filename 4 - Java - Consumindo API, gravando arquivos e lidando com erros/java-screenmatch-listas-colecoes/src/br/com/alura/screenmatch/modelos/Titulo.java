@@ -1,13 +1,14 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.Year;
 
 public class Titulo {
-    @SerializedName("Title") //anotação para buscar o nome como vem no Json
+    //@SerializedName("Title") //anotação para buscar o nome como vem no Json
     private String nome;
-    @SerializedName("Year")  //anotação para buscar o anoDeLancamento como vem no Json
+    //@SerializedName("Year")  //anotação para buscar o anoDeLancamento como vem no Json
     private int anoDeLancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
@@ -21,6 +22,12 @@ public class Titulo {
 
     public Titulo(TituloOmdb meuTituloOmdb) {
         this.nome = meuTituloOmdb.title();
+
+        if(meuTituloOmdb.year().length() > 4) {
+            throw new ErroDeConversaoDeAnoException("Não consegui converter o ano " +
+                    "porque tem mais de 4 caracteres");
+        }
+
         //valueOf é um método que converte uma string que representa nome de uma constante
         this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
         //substring informa onde começa e onde termina as opções buscadas
@@ -79,8 +86,8 @@ public class Titulo {
 
     @Override
     public String toString() {
-        return "nome = '" + nome + '\'' +
+        return "(nome = '" + nome +
                 ", anoDeLancamento = " + anoDeLancamento + "," +
-                " duração " + duracaoEmMinutos;
+                " duração = " + duracaoEmMinutos + ")";
     }
 }
